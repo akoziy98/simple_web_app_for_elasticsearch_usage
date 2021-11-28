@@ -1,0 +1,109 @@
+version: 1
+formatters:
+    db_format:
+        class: logging.Formatter
+        format: "%(asctime)s %(name)s %(levelname)s %(message)s"
+        datefmt: "%Y-%m-%d %H:%M:%S"
+    db_controller_format:
+        class: logging.Formatter
+        format: "%(asctime)s %(name)s %(levelname)s %(message)s"
+        datefmt: "%Y-%m-%d %H:%M:%S"
+    app_endpoints_format:
+        class: logging.Formatter
+        format: "%(asctime)s %(name)s %(levelname)s %(message)s"
+        datefmt: "%Y-%m-%d %H:%M:%S"
+    main_app_format:
+        class: logging.Formatter
+        format: "%(asctime)s %(name)s %(levelname)s %(message)s"
+        datefmt: "%Y-%m-%d %H:%M:%S"
+handlers:
+    debug_handler:
+        class: logging.FileHandler
+        filename: app/logs/debug_global_log.debug.log
+        formatter: db_format
+        level: DEBUG
+    debug_db_handler:
+        class: logging.FileHandler
+        filename: app/logs/db_log.debug.log
+        formatter: db_format
+        level: DEBUG
+    warn_db_handler:
+        class: logging.FileHandler
+        filename: app/logs/db_log.warn.log
+        formatter: db_format
+        level: WARN
+    info_db_handler:
+        #class: logging.StreamHandler
+        class: logging.FileHandler
+        #stream: ext://sys.stderr
+        filename: app/logs/db_log.info.log
+        formatter: db_format
+        level: INFO
+    debug_db_controller_handler:
+        class: logging.FileHandler
+        filename: app/logs/db_controller_log.debug.log
+        formatter: db_controller_format
+        level: DEBUG
+    warn_db_controller_handler:
+        class: logging.FileHandler
+        filename: app/logs/db_controller_log.warn.log
+        formatter: db_controller_format
+        level: WARN
+    info_db_controller_handler:
+        #class: logging.StreamHandler
+        class: logging.FileHandler
+        #stream: ext://sys.stderr
+        filename: app/logs/db_controller_log.info.log
+        formatter: db_controller_format
+        level: INFO
+    debug_app_endpoints_handler:
+        class: logging.FileHandler
+        filename: app/logs/app_endpoints_log.debug.log
+        formatter: app_endpoints_format
+        level: DEBUG
+    warn_app_endpoints_handler:
+        class: logging.FileHandler
+        filename: app/logs/app_endpoints_log.warn.log
+        formatter: app_endpoints_format
+        level: WARN
+    info_app_endpoints_handler:
+        #class: logging.StreamHandler
+        class: logging.FileHandler
+        #stream: ext://sys.stderr
+        filename: app/logs/app_endpoints_log.info.log
+        formatter: app_endpoints_format
+        level: INFO
+    debug_main_app_handler:
+        class: logging.FileHandler
+        filename: app/logs/main_app_log.debug.log
+        formatter: main_app_format
+        level: DEBUG
+    warn_main_app_handler:
+        class: logging.FileHandler
+        filename: app/logs/main_app_log.warn.log
+        formatter: main_app_format
+        level: WARN
+    info_main_app_handler:
+        #class: logging.StreamHandler
+        class: logging.FileHandler
+        #stream: ext://sys.stderr
+        filename: app/logs/main_app_log.info.log
+        formatter: main_app_format
+        level: INFO
+loggers:
+    db:
+        level: DEBUG
+        handlers: [debug_db_handler, warn_db_handler, info_db_handler]
+    db_controller:
+        level: DEBUG
+        handlers: [debug_db_controller_handler, warn_db_controller_handler, info_db_controller_handler]
+    app_endpoints:
+        level: DEBUG
+        handlers: [debug_app_endpoints_handler, warn_app_endpoints_handler, info_app_endpoints_handler]
+    main_app:
+        level: DEBUG
+        handlers: [debug_main_app_handler, warn_main_app_handler, info_main_app_handler]
+root:
+    level: DEBUG
+    #handlers: [debug_db_handler, warn_db_handler, info_db_handler]
+    handlers: [debug_handler]
