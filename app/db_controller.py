@@ -38,7 +38,7 @@ class ElasticSearchController():
         :param name: name of the parameter
         :return: value of the parameter, that can be int or str
         """
-        res = self.es.search(index=self.index_pars, query={"match": {"par": name}})
+        res = self.es.search(index=self.index_pars, query={"match": {"par": name}}, size=1000, from_=0)
         res = res["hits"]["hits"][0]["_source"]["value"]
         logger.debug("get parameter with name: %s and value: %s", name, res)
         return res
@@ -50,10 +50,11 @@ class ElasticSearchController():
         Important: this parameter should be less than total number of authors
         :return: dictionary of top authors in format: {"author_name" : number_of_texts}
         """
+        logger.info("get top n: %s authors", n)
         count_of_authors = len(self.authors_list)
         if n <= count_of_authors:
             count_list_sorted = self.ranging_all_authors()
-            logger.debug("count list sorted: %s", count_list_sorted)
+            logger.info("count list sorted: %s", count_list_sorted)
             return dict(count_list_sorted[:n])
         else:
             msg = ("n parameter should be lower or equal, than authors count. " \
@@ -88,7 +89,7 @@ class ElasticSearchController():
         :param name: name of specific author
         :return: number of author's texts
         """
-        res = self.es.search(index=self.index_name, query={"match": {"author": name}})
+        res = self.es.search(index=self.index_name, query={"match": {"author": name}}, size=1000, from_=0)
         count_text = res["hits"]["total"]["value"]
         return count_text
 
@@ -98,6 +99,7 @@ class ElasticSearchController():
         :param n: number of last n moths
         :return: list of sorted datetimes
         """
+        logger.info("get datetime dustribution at last n: %s months", n)
         date_now = datetime.datetime.date(datetime.datetime.now())
         year_prev = date_now.year - n // 12
         month_prev = date_now.month - n % 12
@@ -115,6 +117,7 @@ class ElasticSearchController():
                 current_date = datetime.datetime.fromtimestamp(current_timestamp)
                 current_date = datetime.datetime.date(current_date)
                 list_of_datetimes.append(current_date)
+        logger.info("return list of datetimes: %s", list_of_datetimes)
         return sorted(list_of_datetimes)
 
     def get_documents_in_last_n_months(self, timestamp_prev : float) -> dict:
@@ -125,5 +128,5 @@ class ElasticSearchController():
         :return: dictionary, that represents search result in elasticsearch database
         """
         query = {'range': {'date': {'gte': timestamp_prev}}}
-        res = self.es.search(index=self.index_name, query=query)
+        res = self.es.search(index=self.index_name, query=query, size=1000, from_=0)
         return res

@@ -1,0 +1,1 @@
+file to provide correctly work of logger. Folder shouldn't be emplty while commit to git

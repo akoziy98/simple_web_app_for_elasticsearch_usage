@@ -55,7 +55,7 @@ class TextTimeCreation():
         """
         logger.info("get datetime dustribution at last n: %s months", n)
         list_of_datetimes = self.es_controller.get_datetime_documents_in_last_n_months(n)
-        logger.info("return list of datetimes: %s", list_of_datetimes)
         #convert datetimes to str format and flip it
         list_of_datetimes_str = [str(el) for el in list_of_datetimes[::-1]]
+        logger.info("return list of datetimes: %s", list_of_datetimes_str)
         return list_of_datetimes_str

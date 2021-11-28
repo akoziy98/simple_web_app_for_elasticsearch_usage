@@ -46,6 +46,7 @@ def get_n_top_authors(n : int) -> dict:
     total number of authors
     :return: dictionary of top authors in format: {"author_name" : number_of_texts}
     """
+    logger.debug("get n: %s top authors", n)
     res_top_authors = top_authors.get_n_top_authors(n)
     logger.info("top n: %s authors is: %s", n, res_top_authors)
     return res_top_authors
@@ -58,6 +59,7 @@ def get_datetime_documents_in_last_n_months(n : int) -> list:
     :param n: number of last months
     :return: list of text's creation days in str format
     """
+    logger.debug("get datetime documents in last n: %s months", n)
     res_datetime_documents = text_time_creation.get_datetime_documents_in_last_n_months(n)
     logger.info("datetime distribution at last n: %s months: %s", n, res_datetime_documents)
     return res_datetime_documents
