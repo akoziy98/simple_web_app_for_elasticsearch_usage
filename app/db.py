@@ -13,8 +13,8 @@ import logging
 
 logger = logging.getLogger("db")
 
-_DEFAULT_DOC_COUNT = 10
-_DEFAULT_AUTHORS_COUNT = 10
+_DEFAULT_DOC_COUNT = 80
+_DEFAULT_AUTHORS_COUNT = 20
 _DEFAULT_DATETIME_START = datetime.date(2018, 1, 1)
 _DEFAULT_DATETIME_END = datetime.datetime.date(datetime.datetime.now())
 _DEFAULT_DATETIME_INTERVAL = (_DEFAULT_DATETIME_END - _DEFAULT_DATETIME_START).days
