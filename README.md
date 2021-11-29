@@ -65,7 +65,7 @@ We have implemented three GET queries in out web application.
   
   ### Top n authors
   
-  First one endpoint get parameter n, and returns top n authors, ranked by the texts number. Parameter n should be less or equal to total authors number. This value set default to 20. It means, that you can obtain maximum top 20 authors. This query runs as:
+  First one endpoint get parameter n, and returns top n authors, ranked by the texts number. Parameter n should be less or equal to total authors number, othervise it will return message "Internal Server Error". This value set default to 20. It means, that you can obtain maximum top 20 authors. This query runs as:
   
   http://127.0.0.1:8001/documents/authors/top/10/
   
@@ -75,7 +75,7 @@ We have implemented three GET queries in out web application.
   
   ### Distribution of text creation datetime at last n months
   
-  Second one endpoint get parameter n, and returns distribution of datetimes at last n months. It returns sorted datetimes, from the most modern to the oldest. This query runs as:
+  Second one endpoint get parameter n, and returns distribution of datetimes at last n months. It returns sorted datetimes, from the most modern to the oldest. If you try to get distribution of texts creation time at February, with the current date 29, 30 or 31, an error will occur. As example, if now is 2021-11-29, then query with n = 9 will return message "Internal Server Error". This query runs as:
   
   http://127.0.0.1:8001/documents/dates/lastmonths/24/
 
